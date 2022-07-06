@@ -106,13 +106,14 @@ you need to follow to upload and submit your algorithm to [3DTeethSeg22](https:/
 3. Once your algorithm is ready to run you will see the status "Active" beside it as shown below
     ![alt text](misc/containers_algorithm.png)
 
-[comment]: <> (    Once it becomes active, we suggest that you try out the algorithm to verify everything works as expected. For this, please click on *Try-out Algorithm* tab, and upload a *Generic Medical Image*. You could upload the image provided here in the test folder since it is a 3D image &#40;CXRs are stacked together&#41; which is the expected format.)
+    Once it becomes active, we suggest that you try out the algorithm to verify everything works as expected.
+    For this, please click on *Try-out Algorithm* tab, and upload a *3D teeth scan*.
+    ![alt text](misc/try_out_algorithm.png)
+    
+    📌 NOTE: Please use 0EJBIPTC_lower.obj provided in ./test to try out your algorithm. Also, please note that obj files from the training batches can be used, 
+    however they do not include upper/lower information in the header.
+    ![alt text](misc/add_jaw_to_scan.png)
 
-[comment]: <> (  ![alt text]&#40;images/algorithm_tryout.PNG&#41;)
-
-[comment]: <> (   OPTIONAL: You could look at the results of your algorithm: click on the *Results*, and *Open Result in Viewer* to visualize the results. You would be directed to CIRRUS viewer, and the results will be visualized with the predicted bounding boxes on chest x-ray images as below. You could move to the next and previous slice &#40;slice is a chest x-ray in this case&#41; by clicking on the up and down arrow in the keyboard.)
-
-[comment]: <> (     ![alt text]&#40;images/algorithm_results.PNG&#41;)
 
 4. You have created and tested your Grand-Challenge Algorithm!!  The last step is to submit your algorithm to the 3DTeethSeg22 challenge to have it evaluated and get your spot on the leaderboard!
    Go to the [3DTeethSeg22 submission page](https://3dteethseg.grand-challenge.org/evaluation/challenge/submissions/create/), and click on the track where you want to participate
