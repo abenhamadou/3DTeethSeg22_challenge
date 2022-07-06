@@ -53,8 +53,8 @@ class ScanSegmentation():  # SegmentationAlgorithm is not inherited in this clas
                        }
 
         # just for testing
-        # with open('./test/expected_output.json', 'w') as fp:
-        with open('/output/dental-labels.json', 'w') as fp:
+        with open('./test/test_local/expected_output.json', 'w') as fp:
+        # with open('/output/dental-labels.json', 'w') as fp:
             json.dump(pred_output, fp, cls=NpEncoder)
 
         return
@@ -69,6 +69,8 @@ class ScanSegmentation():  # SegmentationAlgorithm is not inherited in this clas
             try:
                 with open(scan_path, 'r') as f:
                     jaw = f.readline()[2:-1]
+                if jaw not in ["upper", "lower"]:
+                    return None
             except Exception as e:
                 print(str(e))
                 print(traceback.format_exc())
@@ -122,7 +124,7 @@ class ScanSegmentation():  # SegmentationAlgorithm is not inherited in this clas
         Read input from /input, process with your algorithm and write to /output
         assumption /input contains only 1 file
         """
-        input = self.load_input(input_dir='/input')
+        input = self.load_input(input_dir='./test/test_local')
         labels, instances, jaw = self.predict(input)
         self.write_output(labels=labels, instances=instances, jaw=jaw)
 
