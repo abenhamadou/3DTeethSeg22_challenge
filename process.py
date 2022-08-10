@@ -124,7 +124,7 @@ class ScanSegmentation():  # SegmentationAlgorithm is not inherited in this clas
         Read input from /input, process with your algorithm and write to /output
         assumption /input contains only 1 file
         """
-        input = self.load_input(input_dir='./test/test_local')
+        input = self.load_input(input_dir='/input')
         labels, instances, jaw = self.predict(input)
         self.write_output(labels=labels, instances=instances, jaw=jaw)
 
