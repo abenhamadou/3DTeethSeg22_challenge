@@ -108,11 +108,14 @@ you need to follow to upload and submit your algorithm to [3DTeethSeg22](https:/
 
     Once it becomes active, we suggest that you try out the algorithm to verify everything works as expected.
     For this, please click on *Try-out Algorithm* tab, and upload a *3D teeth scan*.
-    ![alt text](misc/try_out_algorithm.png)
     
     📌 NOTE: Please use 0EJBIPTC_lower.obj provided in ./test to try out your algorithm. Also, please note that obj files from the training batches can be used, 
     however they do not include upper/lower information in the header.
     ![alt text](misc/add_jaw_to_scan.png)
+ 
+    ![alt text](misc/try_out_algorithm.png)
+    
+
 
 
 4. You have created and tested your Grand-Challenge Algorithm!!  The last step is to submit your algorithm to the 3DTeethSeg22 challenge to have it evaluated and get your spot on the leaderboard!
