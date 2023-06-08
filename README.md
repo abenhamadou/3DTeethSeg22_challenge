@@ -27,14 +27,14 @@ Damaged teeth.
 
 ## Citing us
 ```
-1- @article{ben20233dteethseg,
+@article{ben20233dteethseg,
 title={3DTeethSeg'22: 3D Teeth Scan Segmentation and Labeling Challenge},
-author={Ben-Hamadou, Achraf and Smaoui, Oussama and Rekik, Ahmed and Pujades, Sergi and Boyer, Edmond and Lim, Hoyeon and Kim, Minchang and Lee, Minkyung and Chung, Minyoung and Shin, Yeong-Gil and others},
+author={Achraf Ben-Hamadou and Oussama Smaoui and Ahmed Rekik and Sergi Pujades and Edmond Boyer and Hoyeon Lim and Minchang Kim and Minkyung Lee and Minyoung Chung and Yeong-Gil Shin and Mathieu Leclercq and Lucia Cevidanes and Juan Carlos Prieto and Shaojie Zhuang and Guangshun Wei and Zhiming Cui and Yuanfeng Zhou and Tudor Dascalu and Bulat Ibragimov and Tae-Hoon Yong and Hong-Gi Ahn and Wan Kim and Jae-Hwan Han and Byungsun Choi and Niels van Nistelrooij and Steven Kempers and Shankeeth Vinayahalingam and Julien Strippoli and Aurélien Thollot and Hugo Setbon and Cyril Trosset and Edouard Ladroit},
 journal={arXiv preprint arXiv:2305.18277},
 year={2023}
 }
 
-2- @article{ben2022teeth3ds,
+@article{ben2022teeth3ds,
 title={Teeth3DS: a benchmark for teeth segmentation and labeling from intra-oral 3D scans},
 author={Ben-Hamadou, Achraf and Smaoui, Oussama and Chaabouni-Chouayakh, Houda and Rekik, Ahmed and Pujades, Sergi and Boyer, Edmond and Strippoli, Julien and Thollot, Aur{\'e}lien and Setbon, Hugo and Trosset, Cyril and others},
 journal={arXiv preprint arXiv:2210.06094},
@@ -46,7 +46,7 @@ year={2022}
 A total of 1800 3D intra-oral scans have been collected for 900 patients covering their upper and lower jaws separately.
 
 Two dataset split are provided:
-* 3D Teeth Seg Challenge split
+* 3D Teeth Seg Challenge split (used during the challenge)
 * Teeth3DS official dataset split
 
 The ground truth tooth labels and tooth instances for each vertex in the obj
@@ -98,7 +98,7 @@ F1=2*(precision * recall)/(precision+recall)
 
 ## Licence
 
-The data is provided under the [CC BY-SA 4.0 License](https://creativecommons.org/licenses/by-sa/4.0/), making it fully open-sourced.
+The data is provided under the [CC BY-NC-ND 4.0 License](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 
 The rest of this repository is under the [MIT License](https://choosealicense.com/licenses/mit/).
 ## Contact
