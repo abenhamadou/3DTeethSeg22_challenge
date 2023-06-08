@@ -1,140 +1,106 @@
-# Docker image of reference algorithm for 3DTeethSeg22 challenge .
-Welcome to the 3D_teeth_seg github repository. Here you can find code of our dockerized reference algorithm 
-for 3d teeth scan segmentation to use as a template for your algorithm submission.
+![alt text](assets/Grand-Challenge-Banner.jpeg)
+# 3D Teeth Scan Segmentation and Labeling Challenge
+The challenge 3DTeethSeg22 is a first edition associated with MICCAI 2022. It is organized by Udini (France) in collaboration with Inria Grenoble Morpheo team (France) and the Digital Research Center of Sfax (Tunisia).
+
+## Description
+Computer-aided design (CAD) tools have become increasingly popular in modern dentistry for highly accurate treatment 
+planning. In particular, in orthodontic CAD systems, advanced intraoral scanners (IOSs) are now widely used as they 
+provide precise digital surface models of the dentition. Such models can dramatically help dentists simulate teeth 
+extraction, move, deletion, and rearrangement and ease therefore the prediction of treatment outcomes. Hence, 
+digital teeth models have the potential to release dentists from otherwise tedious and time consuming tasks.
+
+Although IOSs are becoming widespread in clinical dental practice, there are only few contributions on teeth
+segmentation/labeling available in the literature and no publicly available database. A fundamental issue that 
+appears with IOS data is the ability to reliably segment and identify teeth in scanned observations. 
+Teeth segmentation and labeling is difficult as a result of the inherent similarities between teeth shapes as well 
+as their ambiguous positions on jaws.
+
+In addition, it faces several challenges:
+
+ * 1- The teeth position and shape variation across subjects.
+ * 2- The presence of abnormalities in dentition. For example, teeth crowding which results in teeth misalignment and thus non-explicit boundaries between neighboring teeth. Moreover, lacking teeth and holes are commonly seen among people.
+Damaged teeth.
+ * 3- The presence of braces, and other dental equipment
+
+ The challenge we propose will particularly focus on point 1, i.e. the teeth position and shape variation across subjects. With the extension of available data in the mid and long term, the other points will also be addressed in further editions of the challenge.
 
 
+## Citing us
+```
+1- @article{ben20233dteethseg,
+title={3DTeethSeg'22: 3D Teeth Scan Segmentation and Labeling Challenge},
+author={Ben-Hamadou, Achraf and Smaoui, Oussama and Rekik, Ahmed and Pujades, Sergi and Boyer, Edmond and Lim, Hoyeon and Kim, Minchang and Lee, Minkyung and Chung, Minyoung and Shin, Yeong-Gil and others},
+journal={arXiv preprint arXiv:2305.18277},
+year={2023}
+}
 
-## Input and Output interfaces
-All algorithms submitted to the 3DTeethSeg22 must comply with these input and output interfaces. 
-
-It reads the input as: 
-* obj file at "/input/3d-teeth-scan.obj"
-
-and writes the output to :
-* json file related to this 3D scan at "/output/dental-labels.json"
-
-Example of output dental-labels.json file (same format as ground-truth json file, e.g. can be found [here](test/0EJBIPTC_lower.json).
-
-Here is a snippets:
-```python
-{
-    "id_patient": "", 
-    "jaw": "upper", #or "lower",  extracted  from input
-    "labels": [0, 0, 44, 33, 34, 0, 0, 45, 0, .. ,41,  0, 0, 37, 0, 34, 45, 0, 31, 36], 
-    # label of each 3D point in FDI format (label 0 correspond to gingiva)
-    "instances": [0, 0, 10, 2, 12, 0, 0, 9, 0, 0, .. , 10, 0, 0, 8, 0, 0, 9, 0, 1, 8, 13],
-    # each 3D point with same instance correspond only to one tooth
-    # all points with the same instance (correpond exactly to one tooth) should have the same label 
-    # preferably tooth instance is in [1,2, .. , number_of_tooth_detected] 
-    # by default 0 is attributed to gingiva instance
+2- @article{ben2022teeth3ds,
+title={Teeth3DS: a benchmark for teeth segmentation and labeling from intra-oral 3D scans},
+author={Ben-Hamadou, Achraf and Smaoui, Oussama and Chaabouni-Chouayakh, Houda and Rekik, Ahmed and Pujades, Sergi and Boyer, Edmond and Strippoli, Julien and Thollot, Aur{\'e}lien and Setbon, Hugo and Trosset, Cyril and others},
+journal={arXiv preprint arXiv:2210.06094},
+year={2022}
 }
 ```
 
-## Embedding your algorithm into an algorithm docker container
+## Dataset
+A total of 1800 3D intra-oral scans have been collected for 900 patients covering their upper and lower jaws separately.
 
-We encourage you to adapt this example to your needs and your 3D teeth segmentation and 
-labeling solution. You can modify, remove, or add the the files as needed and
-customize your parameters. As discussed above, the main python script to be run by the container is process.py. Please note that we hightlighted the most relevant code parts to be customized with TODO comments.
+Two dataset split are provided:
+* 3D Teeth Seg Challenge split
+* Teeth3DS official dataset split
 
-### Configure the Docker file
-
-We recommend that you use our dockerfile <!-- link to the dockerfile script --> as a template, and update it according to your algorithm 
-requirements. There are three main components you need to define in your docker file in order to wrap 
-your algorithm in a docker container:
-
-1. Choose the right base image (official base image from the library you need (tensorflow, pytorch etc.) recommended)
+The ground truth tooth labels and tooth instances for each vertex in the obj
+files are provided in JavaScript Object Notation (JSON) format. A JSON file
+example is shown below:
 ```python
-FROM pytorch/pytorch:1.9.0-cuda11.1-cudnn8-runtime
+{
+    "id_patient": "6X24ILNE", 
+    "jaw": "upper",
+    "labels": [0, 0, 44, 33, 34, 0, 0, 45, 0, .. ,41,  0, 0, 37, 0, 34, 45, 0, 31, 36], 
+    "instances": [0, 0, 10, 2, 12, 0, 0, 9, 0, 0, .. , 10, 0, 0, 8, 0, 0, 9, 0, 1, 8, 13],
+}
 ```
+The length of the tables ”labels” and ”instances” is the same as the total number of vertices in the corresponding 3D scan. The label and instance ”0” are
+reserved by default for gingiva. And, other than ”0”, the unique numbers in table ”instances” indicate the number of teeth in the 3D scan.
 
-2. Copy all the files you need to run your model : model weights, *requirements.txt*, all the python files you need etc.
+The labels are provided in the FDI numbering system.
+![alt text](assets/samples.png)
 
-```python
-COPY --chown=algorithm:algorithm requirements.txt /opt/algorithm/
-COPY --chown=algorithm:algorithm model /opt/algorithm/model
-COPY --chown=algorithm:algorithm model.pth /opt/algorithm/checkpoints
-```
+## Evaluation
+### Metrics
+* Teeth localization accuracy (TLA):
 
-3. Install all the dependencies, defined in *requirements.txt*, in your dockerfile.
-```python
-RUN python -m pip install --user -rrequirements.txt
-```
-Ensure that all of the dependencies with their versions are specified in *requirements.txt*
+calculated as the mean of normalized Euclidean distance between ground truth (GT) teeth centroids and the closest localized teeth centroid. 
+Each computed Euclidean distance is normalized by the size of the corresponding GT tooth. 
+In case of no centroid (e.g. algorithm crashes or missing output for a given scan) a nominal penalty of 5 per GT tooth 
+will be given. This corresponds to a distance 5 times the actual GT tooth size. As the number of teeth per patient may
+be variable, here the mean is computed over all gathered GT Teeth in the two testing sets.
 
-### Build, test and export container 
+* Teeth identification rate (TIR): 
 
-1. **Build:** To test if all dependencies are met, you should run the file build.bat (Windows) / build.sh (Linux) to build the docker container. Please note that the next step (testing the container) 
-also runs a build, so this step is not mandatory if you are certain 
-that everything is set up correctly.
+is computed as the percentage of true identification cases relatively to all GT teeth in the two testing sets. A true identification is considered when for a given GT Tooth, the closest detected tooth centroid : is localized at a distance under half of the GT tooth size, and is attributed the same label as the GT tooth
+* Teeth segmentation accuracy (TSA): 
 
-2. **Test:** To ckeck if your docker container works as you expect, you may run locally test.sh/test.bat. But first you need to update the file test/expected_output.json with your expected results (output of your algorithm) for the tested sample test/0EJBIPTC_lower.obj. test.sh/test.bat actually runs your docker image on test/0EJBIPTC_lower.obj, produces /ouput/dental-labels.json, and finally compares it to test/expected_output.json.
+is computed as the average F1-score over all instances of teeth point clouds. 
+The F1-score of each tooth instance is measured as:
+F1=2*(precision * recall)/(precision+recall)
 
-    If the test runs successfully you will see the message Tests successfully passed... at the end of the output
+**📌 NOTE:** Metrics calculation scripts are gathered in [evaluation.py](evaluation/evaluation.py)
+### Leaderboard
+| Team     | Method | Exp(-TLA)  | TSA        | TIR        | SCORE      | Github link |
+|----------|--------|------------|------------|------------|------------|-------------|
+| CGIP     |    | 0.9658     | **0.9859** | 0.9100     | **0.9539** |             |
+| FiboSeg  |    | **0.9924** | 0.9293           | 0.9223     | 0.9480     |             |
+| IGIP     |    |         0.9244    |  0.9750          | **0.9289** | 0.9427     |             |
+| TeethSeg |    |      0.9184      |     0.9678       |       0.8538     | 0.9133     |             |
+| OS       |    |      0.7845      |     0.9693       |        0.8940     | 0.8826     |             |
+| Chompers |    |        0.6242     |         0.8886    |   0.8795         | 0.7974     |             |
 
-3. **Export:** Run export.sh/export.bat to save the docker image to .tar.gz file.
+## Licence
 
-### Submit your algorithm 
+The data is provided under the [CC BY-SA 4.0 License](https://creativecommons.org/licenses/by-sa/4.0/), making it fully open-sourced.
 
-**📌 NOTE: Number of allowed submissions by phase:**
-- Only **5** submissions to the preliminary Test phase are allowed
-- Only **one** submission is allowed for the Final Test phase 
-
-Please make sure all steps described above work as expected before proceeding.
-Ensure also that you have an account on grand-challenge.org and that you are a [verified user](https://grand-challenge.org/documentation/account-verification/).
- 
-Once you checked that your docker container runs as expected, you are ready to submit! Let us walk you through the steps 
-you need to follow to upload and submit your algorithm to [3DTeethSeg22](https://3dteethseg.grand-challenge.org/) track:
-
-1. You first have to create an algorithm entry for your docker container [here](https://grand-challenge.org/algorithms/create/).
-   * Please choose a title and description for your algorithm and enter the modalities and structure information as in the example below.
-   ![alt text](misc/create_algorithm.png)
-   * Scrolling down the page, you will see that you need to enter further information like the logo (preferably square image) and the Viwer for example *Viewer CIRRUS Core (Public)*
-   ![alt text](misc/logo_algorithm.png)
-   * For the interfaces of the algorithm, please select *3D Teeth scan (OBJ file)* as Inputs, and *Dental labels (Anything)* as Outputs.
-   * Indicate if you would like your Docker image to use GPU and how much memory it needs 
-   ![alt text](misc/input_output_algorithm.png)
-   
-
-   * Don't forget to click the Save button at the bottom of the page to create your algorithm.
-
-2. After creating your algorithm, you need to attach a docker container to it so it becomes functional. If you already built the tar.gz file as described above then you can upload this file directly. First choose "Containers" on the left menu of your screen as shown below, then click on "upload a Container" button, and upload your tar.gz file. You can also later overwrite your container by uploading a new one (ie. you should not create a whole new algorithm if you make some code changes):
-    Please note that it can take a while until the container becomes active. (Status will change from "Ready: False" to "Active")  Check back later or refresh the URL after some time.
-    ![alt text](misc/upload_container_algorithm.png)
-    
-
-      
-3. Once your algorithm is ready to run you will see the status "Active" beside it as shown below
-    ![alt text](misc/containers_algorithm.png)
-
-    Once it becomes active, we suggest that you try out the algorithm to verify everything works as expected.
-    For this, please click on *Try-out Algorithm* tab, and upload a *3D teeth scan*.
-    
-    📌 NOTE: Please use 0EJBIPTC_lower.obj provided in ./test to try out your algorithm. Also, please note that obj files from the training batches can be used, 
-    however they do not include upper/lower information in the header.
-    ![alt text](misc/add_jaw_to_scan.png)
- 
-    ![alt text](misc/try_out_algorithm.png)
-    
-
-
-
-4. You have created and tested your Grand-Challenge Algorithm!!  The last step is to submit your algorithm to the 3DTeethSeg22 challenge to have it evaluated and get your spot on the leaderboard!
-   Go to the [3DTeethSeg22 submission page](https://3dteethseg.grand-challenge.org/evaluation/challenge/submissions/create/), and click on the track where you want to participate
-   ("Preliminary Test : 3D Teeth Segmentation and Labeling Submission" OR "Final Test : 3D Teeth Segmentation and Labeling Submission
-Create a new submission")
-
-5. You have created and tested your Grand-Challenge Algorithm!! The last step is to submit your algorithm to the 3DTeethSeg22 challenge to have it evaluated and get your spot on the leaderboard! Go to the 3DTeethSeg22 submission page, and click on the track where you want to participate.
-Choose your algorithm name from the dropdown list and click on "Save".
-6. Allow some time for the evaluation to be processed.  It may not start immediately depending on what hardware resources are available at the time. 
-   Your result will appear on the [leaderboard page](https://3dteethseg.grand-challenge.org/evaluation/challenge/leaderboard/) (make sure to select the track where you submitted).
-   If you do not see your result after 24 hours please contact us via email, the forum or  and provide your algorithm name and date/time you submitted in Central European Time.
-   
-
-### Re-submitting if you make improvements
-If you already have an algorithm on Grand-Challenge you do NOT need to make a new one whenever you have made some improvements or changes to your code. 
-To re-submit, you can upload a new tar.gz file which will overwrite the old one.  Find your algorithm at [https://grand-challenge.org/algorithms/](https://grand-challenge.org/algorithms/).  Click on "Containers", and "upload a container" as before.  Allow some time for the algorithm to become "Active" as previously. 
-
-
-Once your algorithm is updated you need to resubmit to 3DTeethSeg22, this does not happen automatically!  Visit the [3DTeethSeg22 submission page](https://3dteethseg.grand-challenge.org/evaluation/challenge/submissions/create/) and proceed to submit to your chosen track as before. 
-
+The rest of this repository is under the [MIT License](https://choosealicense.com/licenses/mit/).
+## Contact
+For queries and issues not fit for a github issue, please email [Achraf Ben Hamadou](mailto:achraf.benhamadou@crns.rnrt.tn) .
 

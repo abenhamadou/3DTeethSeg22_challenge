@@ -1,0 +1,8 @@
+# build docker image
+docker build -f Dockerfile -t evaluation:0.1 .
+
+# test docker run
+docker run --rm -v /media/oussama/60d0458f-2f1f-4c73-bfe4-93757a0b94c5/home/oussama/workspace/SegLab_challenge_submission/out:/predicted evaluation:0.1
+
+# docker save
+docker save evaluation:0.1 > 3DTeethSeg_evaluationv0.1.tar

@@ -1,0 +1,4 @@
+numpy==1.19.5
+trimesh==3.9.29
+sklearn
+tqdm
