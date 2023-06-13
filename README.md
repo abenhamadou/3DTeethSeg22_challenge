@@ -26,7 +26,7 @@ Damaged teeth.
 
 
 ## Citing us
-https://arxiv.org/abs/2305.18277
+
 ```
 @article{ben20233dteethseg,
 title={3DTeethSeg'22: 3D Teeth Scan Segmentation and Labeling Challenge},
@@ -34,9 +34,7 @@ author={Achraf Ben-Hamadou and Oussama Smaoui and Ahmed Rekik and Sergi Pujades 
 journal={arXiv preprint arXiv:2305.18277},
 year={2023}
 }
-```
-https://arxiv.org/abs/2210.06094
-```
+
 @article{ben2022teeth3ds,
 title={Teeth3DS: a benchmark for teeth segmentation and labeling from intra-oral 3D scans},
 author={Ben-Hamadou, Achraf and Smaoui, Oussama and Chaabouni-Chouayakh, Houda and Rekik, Ahmed and Pujades, Sergi and Boyer, Edmond and Strippoli, Julien and Thollot, Aur{\'e}lien and Setbon, Hugo and Trosset, Cyril and others},
