@@ -26,6 +26,7 @@ Damaged teeth.
 
 
 ## Citing us
+https://arxiv.org/abs/2305.18277
 ```
 @article{ben20233dteethseg,
 title={3DTeethSeg'22: 3D Teeth Scan Segmentation and Labeling Challenge},
@@ -33,7 +34,9 @@ author={Achraf Ben-Hamadou and Oussama Smaoui and Ahmed Rekik and Sergi Pujades 
 journal={arXiv preprint arXiv:2305.18277},
 year={2023}
 }
-
+```
+https://arxiv.org/abs/2210.06094
+```
 @article{ben2022teeth3ds,
 title={Teeth3DS: a benchmark for teeth segmentation and labeling from intra-oral 3D scans},
 author={Ben-Hamadou, Achraf and Smaoui, Oussama and Chaabouni-Chouayakh, Houda and Rekik, Ahmed and Pujades, Sergi and Boyer, Edmond and Strippoli, Julien and Thollot, Aur{\'e}lien and Setbon, Hugo and Trosset, Cyril and others},
@@ -42,21 +45,13 @@ year={2022}
 }
 ```
 
-## Dataset
-### Licence
+## Dataset details
+### License
 
-1. The data is provided under the [CC BY-NC-ND 4.0 License](https://creativecommons.org/licenses/by-nc-nd/4.0/)
-2. The rest of this repository is under the [MIT License](https://choosealicense.com/licenses/mit/).
+The data is provided under the [CC BY-NC-ND 4.0 License](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 
-### Data structure and download
-A total of 1800 3D intra-oral scans have been collected for 900 patients covering their upper and lower jaws separately. Data are structure under 6 data parts. It is required to download all of them and merge them to a same folder architecture.
-1. url : https://osf.io/xctdy/
-
-Two dataset train/test splits are provided , which specify the samples to consider for each dataset:
-* 3D Teeth Seg Challenge split (used during the challenge)
-* Teeth3DS official dataset split
-
-![alt text](assets/train_test_split.png)
+### Data
+A total of 1800 3D intra-oral scans have been collected for 900 patients covering their upper and lower jaws separately. 
 
 The ground truth tooth labels and tooth instances for each vertex in the obj
 files are provided in JavaScript Object Notation (JSON) format. A JSON file
@@ -74,6 +69,18 @@ reserved by default for gingiva. And, other than ”0”, the unique numbers in 
 
 The labels are provided in the FDI numbering system.
 ![alt text](assets/samples.png)
+
+### Download
+
+Dataset is structured under 6 data parts. It is required to download all of them and merge them to a same folder architecture.
+1. url : https://osf.io/xctdy/
+
+Two dataset train/test splits are provided , which specify the samples to consider for each dataset:
+* 3D Teeth Seg Challenge split (used during the challenge)
+* Teeth3DS official dataset split
+
+![alt text](assets/train_test_split.png)
+
 
 ## Evaluation
 ### Metrics
@@ -105,6 +112,8 @@ F1=2*(precision * recall)/(precision+recall)
 | OS       |    |      0.7845      |     0.9693       |        0.8940     | 0.8826     |             |
 | Chompers |    |        0.6242     |         0.8886    |   0.8795         | 0.7974     |             |
 
+## License 
+The rest of this repository is under the [MIT License](https://choosealicense.com/licenses/mit/).
 
 ## Contact
 For queries and issues not fit for a github issue, please email [Achraf Ben Hamadou](mailto:achraf.benhamadou@crns.rnrt.tn) .
