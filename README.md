@@ -17,10 +17,10 @@ as their ambiguous positions on jaws.
 
 In addition, it faces several challenges:
 
- * 1- The teeth position and shape variation across subjects.
- * 2- The presence of abnormalities in dentition. For example, teeth crowding which results in teeth misalignment and thus non-explicit boundaries between neighboring teeth. Moreover, lacking teeth and holes are commonly seen among people.
+ * The teeth position and shape variation across subjects.
+ * The presence of abnormalities in dentition. For example, teeth crowding which results in teeth misalignment and thus non-explicit boundaries between neighboring teeth. Moreover, lacking teeth and holes are commonly seen among people.
 Damaged teeth.
- * 3- The presence of braces, and other dental equipment
+ * The presence of braces, and other dental equipment
 
  The challenge we propose will particularly focus on point 1, i.e. the teeth position and shape variation across subjects. With the extension of available data in the mid and long term, the other points will also be addressed in further editions of the challenge.
 
@@ -43,11 +43,20 @@ year={2022}
 ```
 
 ## Dataset
-A total of 1800 3D intra-oral scans have been collected for 900 patients covering their upper and lower jaws separately.
+### Licence
 
-Two dataset split are provided:
+1. The data is provided under the [CC BY-NC-ND 4.0 License](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+2. The rest of this repository is under the [MIT License](https://choosealicense.com/licenses/mit/).
+
+### Data structure and download
+A total of 1800 3D intra-oral scans have been collected for 900 patients covering their upper and lower jaws separately. Data are structure under 6 data parts. It is required to download all of them and merge them to a same folder architecture.
+1. url : https://osf.io/xctdy/
+
+Two dataset train/test splits are provided , which specify the samples to consider for each dataset:
 * 3D Teeth Seg Challenge split (used during the challenge)
 * Teeth3DS official dataset split
+
+![alt text](assets/train_test_split.png)
 
 The ground truth tooth labels and tooth instances for each vertex in the obj
 files are provided in JavaScript Object Notation (JSON) format. A JSON file
@@ -96,11 +105,7 @@ F1=2*(precision * recall)/(precision+recall)
 | OS       |    |      0.7845      |     0.9693       |        0.8940     | 0.8826     |             |
 | Chompers |    |        0.6242     |         0.8886    |   0.8795         | 0.7974     |             |
 
-## Licence
 
-The data is provided under the [CC BY-NC-ND 4.0 License](https://creativecommons.org/licenses/by-nc-nd/4.0/)
-
-The rest of this repository is under the [MIT License](https://choosealicense.com/licenses/mit/).
 ## Contact
 For queries and issues not fit for a github issue, please email [Achraf Ben Hamadou](mailto:achraf.benhamadou@crns.rnrt.tn) .
 
